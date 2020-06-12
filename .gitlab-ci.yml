@@ -1,0 +1,11 @@
+stages:
+  - build
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+build every commit job:
+  stage: build
+  script:
+    - docker build -f Dockerfile -t ${CI_REGISTRY_IMAGE}:latest .
+    - docker push ${CI_REGISTRY_IMAGE}:latest

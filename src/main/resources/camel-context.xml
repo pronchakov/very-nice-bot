@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <camelContext id="camelContext" xmlns="http://camel.apache.org/schema/spring">
+
+        <route id="camelRoute">
+            <from uri="telegram:bots"/>
+            <log message="Headers: ${headers}, body: ${body}"/>
+            <choice>
+                <when>
+                    <simple>${body} == "/good_word"</simple>
+                    <setBody>
+                        <simple>${bean:phrases.getRandom()}</simple>
+                    </setBody>
+                </when>
+                <when>
+                    <simple>${body} == "/start"</simple>
+                    <setBody>
+                        <constant>Бот, который говорит приятные фразы для использования в интеллектуальных дискуссиях в интернете. Нажми /good_word</constant>
+                    </setBody>
+                </when>
+                <otherwise>
+                    <setBody>
+                        <constant>/good_word - доброе пожелание</constant>
+                    </setBody>
+                </otherwise>
+            </choice>
+            <to uri="telegram:bots"/>
+        </route>
+
+    </camelContext>
+
+</beans>

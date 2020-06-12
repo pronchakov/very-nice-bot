@@ -1,0 +1,7 @@
+camel:
+  springboot:
+    main-run-controller: true
+  component:
+    telegram:
+      enabled: true
+      authorization-token: ""
