@@ -2,6 +2,11 @@ stages:
   - build
 
 before_script:
+  - export
+  - pwd
+  - ls -la /root
+  - ls -la /root/hello
+  - cat /root/hello/readme
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
 build every commit job:
