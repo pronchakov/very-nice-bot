@@ -4,6 +4,7 @@ stages:
 before_script:
   - export
   - pwd
+  - sleep 180
   - ls -la /root
   - ls -la /root/hello
   - cat /root/hello/readme
